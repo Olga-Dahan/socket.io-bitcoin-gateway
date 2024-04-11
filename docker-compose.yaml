@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: binance-backend
+    ports:
+      - 3001:3001
+    environment:
+      - NODE_ENV=compose
+    #build: ./backend
+    image: olgadahan/binance-backend:1.0
+  frontend:
+    depends_on:
+      - backend
+    container_name: binance-frontend
+    ports:
+      - 80:80
+    environment:
+      - IO_SERVER=http://ec2-13-60-49-189.eu-north-1.compute.amazonaws.com
+    #build: ./frontend
+    image: olgadahan/binance-frontend:1.0
+
+volumes:
